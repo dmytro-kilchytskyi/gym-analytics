@@ -20,18 +20,18 @@ public class ExerciseService {
         return repository.save(exercise);
     }
 
-    public Exercise update(String exerciseId, Exercise exerciseUpdate) throws NotFoundException {
-        var exercise = findById(exerciseId);
+    public Exercise update(String id, Exercise exerciseUpdate) {
+        var exercise = findById(id);
         exercise.setName(exerciseUpdate.getName());
 
         return repository.save(exercise);
     }
 
-    public void delete(String exerciseId) throws NotFoundException {
-        repository.delete(findById(exerciseId));
+    public void delete(String id) {
+        repository.delete(findById(id));
     }
 
-    private Exercise findById(String exerciseId) throws NotFoundException {
-        return repository.findById(exerciseId).orElseThrow(NotFoundException::new);
+    private Exercise findById(String id) {
+        return repository.findById(id).orElseThrow(NotFoundException::new);
     }
 }

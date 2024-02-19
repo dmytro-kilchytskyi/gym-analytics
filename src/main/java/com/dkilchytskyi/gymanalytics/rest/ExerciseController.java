@@ -22,13 +22,13 @@ public class ExerciseController {
         return service.create(exercise);
     }
 
-    @PutMapping("/{exerciseId}")
-    public Exercise updateExercise(@PathVariable("exerciseId") String exerciseId, @RequestBody Exercise exercise) {
-        return service.update(exerciseId, exercise);
+    @PutMapping("/{id}")
+    public Exercise updateExercise(@PathVariable("id") String id, @RequestBody Exercise exercise) {
+        return service.update(id, exercise);
     }
 
-    @DeleteMapping("/{exerciseId}")
-    public void deleteExercise(@PathVariable("exerciseId") String exerciseId) {
-        service.delete(exerciseId);
+    @DeleteMapping("/{id}")
+    public void deleteExercise(@PathVariable("id") String id) {
+        service.delete(id);
     }
 }
