@@ -22,7 +22,7 @@ public class ExerciseController {
         return service.create(exercise);
     }
 
-    @PutMapping("/{id}")
+    @PatchMapping("/{id}")
     public Exercise update(@PathVariable("id") String id, @RequestBody Exercise exercise) {
         return service.update(id, exercise);
     }
