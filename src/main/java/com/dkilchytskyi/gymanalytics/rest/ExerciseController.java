@@ -9,26 +9,26 @@ import java.util.List;
 
 @RestController
 @AllArgsConstructor
-@RequestMapping(path = "/exercises")
+@RequestMapping("/exercises")
 public class ExerciseController {
     private final ExerciseService service;
     @GetMapping
-    public List<Exercise> getExercises() {
+    public List<Exercise> getAll() {
         return service.getAll();
     }
 
     @PostMapping
-    public Exercise createExercise(@RequestBody Exercise exercise) {
+    public Exercise create(@RequestBody Exercise exercise) {
         return service.create(exercise);
     }
 
     @PutMapping("/{id}")
-    public Exercise updateExercise(@PathVariable("id") String id, @RequestBody Exercise exercise) {
+    public Exercise update(@PathVariable("id") String id, @RequestBody Exercise exercise) {
         return service.update(id, exercise);
     }
 
     @DeleteMapping("/{id}")
-    public void deleteExercise(@PathVariable("id") String id) {
+    public void delete(@PathVariable("id") String id) {
         service.delete(id);
     }
 }
