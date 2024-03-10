@@ -10,9 +10,8 @@ name: Java CI with Maven
 
 on:
   push:
-    branches: [ "develop" ]
-  pull_request:
-    branches: [ "develop" ]
+    branches:
+      - feat/cicd
 
 jobs:
   build:
@@ -20,12 +19,19 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v3
+    - name: Checkout
+      uses: actions/checkout@v4
     - name: Set up JDK 17
-      uses: actions/setup-java@v3
+      uses: actions/setup-java@v4
       with:
         java-version: '17'
         distribution: 'temurin'
         cache: maven
     - name: Build with Maven
       run: mvn -B package --file pom.xml
+    - name: Docker login
+      run: docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
+    - name: Build and push Docker image
+      run: docker build --platform linux/arm64 -t dkilchytskyi/gym-analytics-app --push .
+    - name: Ping n8n redeploy webhook
+      run: curl --location --request POST 'https://n8n.cloudstats.org/webhook/edfc8a0a-8f05-48ce-8736-999a94104075' --header ${{ secrets.N8N_REDEPLOY_WEBHOOK_AUTH_HEADER }}
